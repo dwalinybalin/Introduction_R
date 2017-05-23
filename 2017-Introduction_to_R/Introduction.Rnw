@@ -17,9 +17,8 @@
                   \url{http://www.isglobal.org}
                   }
                  
-\date{Introduction to R \\ 2 Edition \\  
-May 20th 2014}
-
+\date{Introduction to R \\ 2nd Edition \\  
+May 29th 2017}
 
 
 
