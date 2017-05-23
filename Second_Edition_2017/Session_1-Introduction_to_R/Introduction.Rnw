@@ -43,7 +43,7 @@ options(width = 60)
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.85\textwidth]{Rgui}
+    \includegraphics[width=1\textwidth]{Rgui}
 \end{figure}
 
 \end{frame}
@@ -51,27 +51,56 @@ options(width = 60)
 
 \begin{frame}[fragile]\frametitle{What is ``R'' ?}
 
-``R'' is a integrated suite of software facilities for data manipulation, calculation and graphical display. Among other things it has:\\
+``R'': integrated suite of software for data manipulation, calculation and graphical display. Characteristics:\\
 \begin{itemize}
-\item an Effective data handling and storage facility.
-\item a suite of operators for calculations on arrays, in particular matrices.
-\item a large, coherent, integrated collection of intermediate tools for data analysis.
-\item graphical facilities for data analysis and display either directly at the computer or on hard-copy.
-\item a simple and effective programming language (called ``S'') which includes conditionals, loops, user defined recursive functions and input and output facilities.
+\item Effective data handling and storage facility.
+\item Suite of operators for calculations on arrays.
+\item Large, coherent, integrated collection of intermediate tools for data analysis.
+\item Graphical facilities for data analysis and display.
+\item Simple and effective programming language (called ``S'').
 \end{itemize}
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Installing R}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}[fragile]\frametitle{Installing R}
+
 \begin{itemize}
-\item The R distribution under Windows OS is distributed as an installer with the name R-X.Y.Z-win.exe (Most updated 3.1.0)
+\item Distributed as an installer with the name R-X.Y.Z-win.exe (Most updated 3.4.0)
 \item Maintained by the Comprehensive R Archive Network (CRAN)
 \item CRAN page (Spanish mirror) -- \url{http://cran.es.r-project.org/}
-\item Installer -- \url{http://cran.es.r-project.org/bin/windows/base/R-3.1.0-win.exe}
+\item Installer -- \url{https://cran.r-project.org/bin/windows/base/R-3.4.0-win.exe}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{What is ``RStudio'' ?}
+
+\begin{figure}
+  \centering
+    \includegraphics[width=1\textwidth]{RStudio}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{What is ``RStudio'' ?}
+
+``RStudio'': Integrated development environment (IDE) for R. With several features:\\
+\begin{itemize}
+\item Code editor.
+\item Syntax highlighting, code completion and smart indentation.
+\item Visualization tools.
+\item Integrated help and documentation.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Installing RStudio}
+
+\begin{itemize}
+\item The RStudio software under Windows OS is distributed as an installer with the name RStudio-X.Y.Z.exe (Most updated 1.0.143)
+\item RStudio page -- \url{https://www.rstudio.com}
+\item Installer -- \url{https://download1.rstudio.org/RStudio-1.0.143.exe}
 \end{itemize}
 
 \end{frame}
@@ -80,28 +109,20 @@ options(width = 60)
 \section{First steps}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[fragile]\frametitle{Starting R}
-R can be executed by running Rgui.exe. Rgui stands for R graphical user interface.
-
-\begin{figure}
-  \centering
-    \includegraphics[width=0.6\textwidth]{Rgui}
-\end{figure}
-
-A window like the one in the image will appear.
-
-\end{frame}
-
 \begin{frame}[fragile]\frametitle{Working directory}
-The working directory is the place where R will search for files if no path is given and will write the files or the plots. 
-Because that, it's important to know in which folder we are woking. There's a default path when starting R that can be seen with the next function:
+Folder where R will search for files by default.\\
+It's important to know where are we woking. There's a default path when starting R that can be shown with the function:
 
 <<workdir1, eval=TRUE>>=
 getwd()
 @
 
-This default folder can be changed by changing the ``Start in'' field in the R shortcut in windows.\\
-If we want to change the working directory for the session with R opened, it can be done by going to ``File''-->``Change dir'' in the R gui window. It also can be done by specifying a path with the setwd() function as follows:
+It can be changed by:
+\begin{itemize}
+\item Changing the ``Start in'' field in the R shortcut in windows before opening it.
+\item Going to ``File''-->``Change dir'' inside R.
+\item Use setwd() function:
+\end{itemize}
 
 <<workdir2, eval=FALSE>>=
 setwd("/home/mlopez3/Documentos")
