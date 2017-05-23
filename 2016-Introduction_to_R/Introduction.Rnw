@@ -1,0 +1,383 @@
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+\setbeamertemplate{navigation symbols}{}
+
+
+\usepackage{color}
+\usepackage{CREAL_slides}
+\usepackage{hyperref}
+
+\SweaveOpts{keep.source=TRUE}
+\setkeys{Gin}{width=0.6\textwidth}
+
+
+
+\title[Introduction to R]{Introduction}
+\author[Marcos Lopez-Sanchez]{Marcos Lopez-Sanchez}
+\institute[CREAL]{Center for Research in Environmental Epidemiology (CREAL) \\
+                  \url{http://www.creal.cat/brge.htm}
+                  }
+                 
+\date{Introduction to R \\ 1st Edition \\  
+May 20th 2014}
+
+
+
+
+\begin{document}
+                            
+<<setup, echo=FALSE>>=
+options(width = 60)
+@ 
+
+
+\frame{\titlepage}
+
+\frame{\tableofcontents}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{What is ``R'' ?}
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.85\textwidth]{Rgui}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{What is ``R'' ?}
+
+``R'' is a integrated suite of software facilities for data manipulation, calculation and graphical display. Among other things it has:\\
+\begin{itemize}
+\item an Effective data handling and storage facility.
+\item a suite of operators for calculations on arrays, in particular matrices.
+\item a large, coherent, integrated collection of intermediate tools for data analysis.
+\item graphical facilities for data analysis and display either directly at the computer or on hard-copy.
+\item a simple and effective programming language (called ``S'') which includes conditionals, loops, user defined recursive functions and input and output facilities.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Installing R}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Installing R}
+\begin{itemize}
+\item The R distribution under Windows OS is distributed as an installer with the name R-X.Y.Z-win.exe (Most updated 3.1.0)
+\item Maintained by the Comprehensive R Archive Network (CRAN)
+\item CRAN page (Spanish mirror) -- \url{http://cran.es.r-project.org/}
+\item Installer -- \url{http://cran.es.r-project.org/bin/windows/base/R-3.1.0-win.exe}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{First steps}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Starting R}
+R can be executed by running Rgui.exe. Rgui stands for R graphical user interface.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.6\textwidth]{Rgui}
+\end{figure}
+
+A window like the one in the image will appear.
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Working directory}
+The working directory is the place where R will search for files if no path is given and will write the files or the plots. 
+Because that, it's important to know in which folder we are woking. There's a default path when starting R that can be seen with the next function:
+
+<<workdir1, eval=TRUE>>=
+getwd()
+@
+
+This default folder can be changed by changing the ``Start in'' field in the R shortcut in windows.\\
+If we want to change the working directory for the session with R opened, it can be done by going to ``File''-->``Change dir'' in the R gui window. It also can be done by specifying a path with the setwd() function as follows:
+
+<<workdir2, eval=FALSE>>=
+setwd("/home/mlopez3/Documentos")
+@
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Basic usage}
+The first things to do once R is started is use it as a basic math solver
+
+<<math1, eval=TRUE>>=
+2+2
+1+2*3-4/5
+(19465*0.25)^23
+@
+
+It follows the usual precedence for operators, but can be forced with the use of parentheses ().\\
+So the first usual thing in programmation is to print the ``hello world''
+
+<<helloword, eval=TRUE>>=
+print("hello world")
+@
+
+Hello world is a string, and because that we must pass it between single or dobule quotes.
+\end{frame}
+
+
+
+\begin{frame}[fragile]\frametitle{Closing R and saving Workspace}
+When we have to close the session, we can click the close button of the window, go to the ``File'' menu and select quit, or use the q() function. 
+
+<<exit, eval=FALSE>>=
+q()
+@
+
+R \emph{always} will ask us if we want to save the workspace. Saving the workspace we save all the variables and the commands used in the session, but if we are working with large datasets, it's recommended instead to save only the objects we are interested in or the results, as we will see later. I recommend choosing ``No'' and only save the image if it's really necessary. 
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Survival guide}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Assignment and Vectors}
+R operates on data structures. The simplest structure is the numeric vector.\\ In order to assign values to a variable,
+we use an arrow ``<-''. 
+
+<<vector1, eval=TRUE>>=
+a <- 1
+b <- 10
+@
+
+If we want to assign more than one element, we use the concatenate function ``c''.\\ If there are more than one element assigned to the variable, then it's a vector of elements, in this case, numeric values.
+
+<<vector2, eval=TRUE>>=
+c <- c(a, 5)
+d <- c(c, b, 50, 100)
+d
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Assignment and Vectors II}
+Numbers can also be generated easily within R with several functions:
+<<Seq1, eval=TRUE>>=
+1:10 ## With Colons forward and backward
+seq(10,1) ## With seq function forward and backward too
+seq(from=1,to=10,by=2) ## With seq can be also done 2 by 2
+rep(c(1,2),times=5) ## repeat a element 5 times
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Operators and Vectors}
+In addition to the elementary arithmetic operators (+, -, *, / and \textasciicircum ), R have available common arithmetic functions and useful function for vectors. Except some, those operators are applied to all elements of the vector, and are:
+<<Arith, eval=FALSE>>=
+log(d) ## Logarithm
+exp(d) ## Exponential
+sin(d); cos(d); tan(d) ## Trigonometric functions
+sqrt(d) ## Squared Root
+max(d) ## Returns the maximum
+min(d) ## Returns the minimum
+length(d) ## Returns the number of elements in the vector
+sum(d) ## Returns the sum
+prod(d) ## Returns the product
+mean(d) ## Returns the mean
+var(d) ## Returns the variance
+@
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Logical vectors}
+R also allows manipulation of logical quantities. The elements of a logical vector can be \texttt{TRUE}, \texttt{FALSE} and \texttt{NA}. These are generated by conditions using logical operators. The logicals operators are <, <=, >, >=, == and !=.\\
+Different conditions can be evaluated together with the AND (\string&) and OR (\string|) operators
+<<Log1, eval=TRUE>>=
+d1 <- d < 50
+d1
+d2 <- d < 75 & d >7
+d2
+!d2
+@
+
+Take care with the missing values NA or other types of ``missing'' values like NaN values (Not a Number) and Inf and -Inf
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Character vectors}
+There are also vectors of character or ``words'' and are mainly used as variable labels. These character elements or words are delimited by the double quote character, and can be concatenated with the c() function as can be seen:
+
+<<Char1, eval=TRUE>>=
+e <- "PFC"
+f <- "PM"
+c(e,f)
+@
+
+Also there are functions that allows us to manipulate these character vectors, and with a bit of skill name variables easily:
+
+<<Char2>>=
+paste(e, f) # allows to concatenate strings
+ef <- c(paste(e, 1:3, sep=""), paste(f, c(2.5, 10), sep=""))
+ef
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Subsetting vectors I }
+Vectors can be subsetted by using the name of the vector and a index vector in square brackets. There are 4 different types depending on the index vector:
+\begin{itemize}
+\item A Logical vector: If we have a index vector of the same length as the vector from which the elements are to be selected.
+<<Sub1, eval=TRUE>>=
+d2 <- d < 75 & d >7
+d3 <- d[d2]
+@
+\item A vector of positive integral quantities: The values in the index vector must lie in the set. The corresponding elements of the vector are selected and concatenated in that order.
+<<Sub2, eval=TRUE>>=
+d[3]
+d[c(1,4,3,2,5)]
+d[length(d):1]
+@
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Subsetting vectors II }
+\begin{itemize}
+
+\item A vector of negative integral quantities: The index vector specifies the values to be excluded.
+<<Sub3, eval=TRUE>>=
+d[-3]
+d[-(2:4)]
+@
+\item A vector of character strings: This requires that the object has a names attribute to identify its components.
+<<Sub4, eval=TRUE>>=
+exposures <- d
+names(exposures) <- ef
+exposures[c("PFC3", "PM2.5")]
+@
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Classes I}
+So, normally we can have continual data (numerical) or categorical (character). If we have a numerical vector, the function summary returns some of the statistics of the variable passed. If the variable is character, we can see that the summary function dreturns the length and the type of the data. So, in order to process categorical data, we must change the ``character'' type to ``factor'' in order to process it with the function as.factor(). We can check the class of the object using the function class().\\
+
+NOTE: To change a factor object to a numeric object we must first change it to character using the functions as.character() and  as.numeric()
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Classes II}
+<<Sum1, eval=TRUE>>=
+summary(d)
+class(d)
+summary(ef)
+class(ef)
+casecontrol <- c(rep("case", 4), "control")
+casecontrol <- as.factor(casecontrol)
+class(casecontrol)
+summary(casecontrol)
+@
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Getting help}
+
+R has a help function to get more information on any specific named function. It's useful to know what the function queried does and the input parameters.
+
+<<help1, eval=F>>=
+help(solve)
+?solve
+@
+
+For words with syntactic meaning like ``if'', ``for'' and ``function'' or special characters, the argument must be enclosed in double or single quotes
+
+If we don't know what's the name of the function but we know the method to apply or the action we want to do we can search the function.
+
+<<help2, eval=F>>=
+help.search("random")
+??random
+@
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Saving and loading objects and Sessions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Saving and Loading I }
+
+As said at the beginning, when we quit R we are asked to save the workspace. Furthermore, we can save the workspace where we want with the function save.image().Moreover, if we want to save only an object from the workspace, we can save it with the function save() by stating the name of the variable and the destination file, ended with the .RData extension. The files will be saved in the working directory if no path is specified.
+
+<<Save1, eval=F>>=
+save.image("Rcourse.RData")
+save(d, file="d.RData")
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Saving and Loading II }
+
+Remember that THE NAME OF THE FILE IS NOT THE NAME OF THE VARIABLE INSIDE THE FILE.\\
+To load the objects or sessions, we use the function load() specifying the file on the working directory or the path to the file otherwise. In order to check which objects do we have in the workspace, we can use the function ls()
+
+<<Load2, eval=F>>=
+load("d.RData")
+ls()
+load("Rcourse.RData")
+ls()
+@
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Packages and Repositories}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Packages and Repositories}
+
+Sometimes will be necessary to use methods not implemented in these basic operations. All R functions and datasets are stored in packages, in order to be efficient in terms of memory usage.\\
+To see which packages are installed, we can see it with the function library().
+
+<<Library1, eval=F>>=
+library() ## Show all packages installed
+library(boot) ## Load a package
+@
+
+In order to install packages, the function install.packages() and update.packages() are used, the first for installing from scratch and the second for updating packages.
+
+<<Library2, eval=F>>=
+install.packages("zoo")
+update.packages("base")
+@
+
+Moreover, there are third-party repositories with packages like Bioconductor, specialized in biological and bioinformatics data analysis.(\url{http://www.bioconductor.org/})
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Session Info}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Session Info}
+
+Finally, to see what R version was used to make these slides, the function SessionInfo shows the R version and the packages loaded.
+
+<<SessionInfo>>=
+
+sessionInfo()
+
+@
+
+\end{frame}
+
+\end{document}
+
+
+
+
+
