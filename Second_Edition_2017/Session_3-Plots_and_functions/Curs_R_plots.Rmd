@@ -1,0 +1,296 @@
+---
+title: 'R course: plots and functions'
+author: "Carlos Ruiz"
+date: "31 May 2017"
+output:
+  BiocStyle::html_document:
+    number_sections: true
+    toc: yes
+---
+
+# Introduction
+
+Base R includes a whole set of functions to get the most common plots. These functions are simple and very flexible. This system is based on layers: you create a plot and then you can add additional things on top. `ggplot2` package was designed to create plots that follows a completely different paradigm. In this class, we will only cover base R plots.
+
+## Dataset
+
+In this document we will use _Motor Trend Car Road Tests_ dataset. This data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+```{r}
+data(mtcars)
+head(mtcars)
+```
+
+You can find more information about the dataset by typing:
+
+```{r, eval = FALSE}
+?mtcars
+```
+
+# Plot functions
+
+## Scatterplot
+
+We can inspect the association between two variables using `plot` function. This will generate a scatter-plot:
+
+```{r}
+plot(x = mtcars$mpg, y = mtcars$disp)
+```
+
+We can fit more than one plot in a figure changing the `par` option:
+
+```{r}
+par(mfrow = c(1, 2)) #Num rows, num cols
+plot(mtcars$mpg, mtcars$disp)
+plot(mtcars$mpg, mtcars$cyl)
+```
+
+
+## Customize plots
+
+There are several arguments we can use to customize a plot. The most common are:
+
+- main: change the plot title
+- xlab: change the x-axis label
+- ylab: change the y-axis label
+- pch: type of point
+- col: color of point
+- xlim: set x-axis limits
+- ylim: set y-axis limits
+
+In the following lines, we show how we can easily changes the axes labels, the title, the axes limits and the color and shape of the points:
+
+```{r}
+par(mfrow = c(1, 2))
+plot(mtcars$mpg, mtcars$disp)
+plot(mtcars$mpg, mtcars$disp, main = "Modified plot", 
+     xlab = "Miles/(US) gallon", ylab = "Displacement (cu.in.)", 
+     pch = 16, col = "blue", ylim = c(0, 600), xlim = c(0, 40))
+```
+
+`pch` is a number code. If you search in google "pch R" you will find an image like this: 
+
+![](pch.png)
+
+There are two ways of setting the color using the parameter `col`. The first is passing a vector with the color names. If the vector has only one element, all points will have the same color. In the following line, we color cars by their transmission type. First, we create a vector that is red if the transmission is 0 (automatic) and blue if the transmission is 1 (manual). Then, we pass this vector to `col` parameter:
+
+```{r}
+colors <- ifelse(mtcars$am == 0, "red", "blue")
+head(mtcars$am)
+head(colors)
+plot(mtcars$mpg, mtcars$disp, col = colors, main = "Use names")
+```
+
+We can also pass a factor to the `col` parameter. In this case, each category will have a color but we won't choose it. In this case, R takes the colors from the basic palette. The first level will have the first color, the second level the second color... You can know the order of the colors with the function `palette`:
+
+```{r}
+mtcars$trans <- factor(ifelse(mtcars$am == 0, "automatic", "manual"))
+head(mtcars$trans)
+palette()
+plot(mtcars$mpg, mtcars$disp, col = mtcars$trans, main = "Factor")
+```
+
+NOTE: passing a factor to `col` is the same than passing the factor transformed to a numeric vector!!!!
+
+```{r}
+par(mfrow = c(1, 2))
+mtcars$trans <- factor(ifelse(mtcars$am == 0, "automatic", "manual"))
+head(mtcars$trans)
+head(as.numeric(mtcars$trans))
+plot(mtcars$mpg, mtcars$disp, col = mtcars$trans, main = "Factor")
+plot(mtcars$mpg, mtcars$disp, col = as.numeric(mtcars$trans), main = "Factor numbers")
+```
+
+## Add layers
+
+In base R, there are some functions that add elements to an existing plot:
+
+- abline: add straight lines to a plot
+- legend: add legend to a plot
+- points: add points to a plot 
+- text: add text labels to a plot
+- lines: add short lines to a plot
+
+In the following code, I show you how to add a line to an existing plot:
+
+```{r}
+par(mfrow = c(1, 2))
+plot(mtcars$mpg, mtcars$disp, main = "Normal")
+plot(mtcars$mpg, mtcars$disp, main = "Lines")
+abline(h = 200, v = 20)
+```
+
+Adding a legend is a bit more complex. The function `legend` has several arguments. The first is the position. It can be set with coordinates or using keywords (e.g. topright, look up the help page for more information). The next argument is a character vector with the items present in the legend. In addition, we have the arguments `pch` and `col` that work like in the `plot` function: 
+
+```{r}
+mtcars$trans <- factor(ifelse(mtcars$am == 0, "automatic", "manual"))
+plot(mtcars$mpg, mtcars$disp, col = mtcars$trans)
+
+legend("topright", levels(mtcars$trans), col = 1:2, pch = 1, title = "Transmission")
+```
+
+The functions `points` and `text` are very simillar. The two first parameters are the coordinates, like in the `plot` function. There are other arguments to further customize the plot. In the case of `points`, we can select the shape and the color with the parameters `pch` and `col`. In the following point, we will add some points to an existing plot:
+
+```{r}
+par(mfrow = c(1, 2))
+plot(mtcars$mpg, mtcars$disp, main = "Normal")
+plot(mtcars$mpg, mtcars$disp, main = "Extra points")
+points(c(15, 20, 30), c(100, 200, 400), pch = 16, col = "blue")
+```
+
+The function `text` requires that we also specify the text we want to add to the parameters `labels`. We will run the same example than above but changing by points by letters: 
+
+
+```{r}
+par(mfrow = c(1, 2))
+plot(mtcars$mpg, mtcars$disp, main = "Normal")
+plot(mtcars$mpg, mtcars$disp, main = "Add letters")
+text(c(15, 20, 30), c(100, 200, 400), labels = c("a", "b", "c"))
+```
+
+Finally, if you want shorter lines, you have the function `lines`. You need to pass the coordinates from start and end to the line:
+
+```{r}
+par(mfrow = c(1, 2))
+plot(mtcars$mpg, mtcars$disp, main = "Normal")
+plot(mtcars$mpg, mtcars$disp, main = "Add letters")
+lines(c(15, 30), c(400, 100))
+```
+
+
+## Boxplots
+
+The function `boxplot` allows to easily draw a boxplot. To do so, we use a formula. On the left we will put the continuous variable and on the right the factor we want to use:
+
+```{r}
+boxplot(mpg ~ trans, mtcars)
+```
+
+The function `boxplot` shares some parameters with the function `plot`:
+
+```{r}
+boxplot(mpg ~ trans, mtcars, main = "Color boxplot", col = c("red", "blue"), xlab = "Transmission")
+```
+
+We can also add layers to a boxplot: 
+
+```{r}
+boxplot(mpg ~ trans, mtcars, main = "Color boxplot", col = c("red", "blue"), xlab = "Transmission")
+abline(h = 20)
+```
+
+## Histograms
+
+The function `hist` plots an histogram of your data:
+
+```{r}
+hist(mtcars$disp)
+```
+
+You can change the size of the histogram bins with the parameter breaks. You can pass a vector with the desired cell limits: 
+
+```{r}
+seq(0, 500, 100)
+hist(mtcars$disp, breaks = seq(0, 500, 100))
+```
+
+As for `boxplot`, `hist` share many parameters with `plot` function and you can also add other layers:
+
+```{r}
+hist(mtcars$disp, breaks = seq(0, 500, 100), main = "Histogram", xlab = "Displacement", col = "black")
+abline(v = 50, h = 6)
+```
+
+### More resources on data visualization
+
+You can find more information about plots in the following links:
+
+- [ggplot2](http://ggplot2.org/): Main page of ggplot2 package. Here you have how to install the package and the documentation. 
+- [Cookbook for R: graphs](http://www.cookbook-r.com/Graphs/index.html): an essential book for using ggplot2. Here you will find a lot of examples of different plots. I almost always find the solution to my questions here. 
+
+# Introduction to functions creation
+
+Functions are pieces of code that perform a specific task. For example, the function `mean` computes the mean of a numeric vector. We can use functions from other R packages but we can also develop our own functions. It is highly recommended to write our own functions when there is a task that we have to repeat a lot of times. 
+
+## Case example
+
+Let's imagine that we are working with the mtcars dataset. We are exploring the dataset and we want to plot the association between the mpg variable and other variables. We go to our supervisors' office and they ask us to make bivariate plots of mpg vs cyl, disp and hp. We can do this with:
+
+```{r}
+par(mfrow = c(1, 3))
+plot(mtcars$mpg, mtcars$cyl)
+plot(mtcars$mpg, mtcars$disp)
+plot(mtcars$mpg, mtcars$hp)
+```
+
+Nice! However, our bosses don't like these ugly plots. They tell us to set a title and to change the axis labels for something more clear. In addition, they don't like these empty points we used and they prefer solid triangles. We go back to our computer and we change the code:
+
+```{r}
+par(mfrow = c(1, 3))
+plot(mtcars$mpg, mtcars$cyl, main = "mpg vs cyl plot", xlab = "mpg", ylab = "cyl", pch = 17)
+plot(mtcars$mpg, mtcars$disp, main = "mpg vs disp plot", xlab = "mpg", ylab = "disp", pch = 17)
+plot(mtcars$mpg, mtcars$hp, main = "mpg vs hp plot", ylab = "hp", pch = 17)
+```
+
+Our boss is now very happy with the plot. However, they want to include more variables: drat, wt, and qsec. And they don't like completely the title... So we have more work to do...
+
+```{r}
+par(mfrow = c(2, 3))
+plot(mtcars$mpg, mtcars$cyl, main = "mpg vs cyl", xlab = "mpg", ylab = "cyl", pch = 17)
+plot(mtcars$mpg, mtcars$disp, main = "mpg vs disp", xlab = "mpg", ylab = "disp", pch = 17)
+plot(mtcars$mpg, mtcars$hp, main = "mpg vs hp", xlab = "mpg", ylab = "hp", pch = 17)
+plot(mtcars$mpg, mtcars$drat, main = "mpg vs drat", xlab = "mpg", ylab = "drat", pch = 17)
+plot(mtcars$mpg, mtcars$wt, main = "mpg vs wt", xlab = "mpg", ylab = "wt", pch = 17)
+plot(mtcars$mpg, mtcars$qsec, main = "mpg vs qsec", xlab = "mpg", ylab = "qsec", pch = 17)
+```
+
+But this was not enough. Now, they don't like the point, they prefer an empty square. They have also realized that they are not interested in the hp plot, so we don't need to do it again. In addition, they want now a vertical line at mpg equal to 20. 
+
+At this point, we are deciding between quitting our PhD or changing our thesis topic. But don't worry, functions can help us a lot with indecisive supervisors.
+
+## Create your own function
+
+Before even thinking on code, we need to know what is the repetitive part in our code. In our case, we are making a scatter-plot between two variables. The plot is the same, the only change is the y variable. We reflect the name of this variable in the y-axis label. This can lead to the following abstract code:
+
+*plot(mtcars$mpg, `var2`, main = "mpg vs `var2 name`", xlab = "mpg", ylab = `var2 name`, pch = 17)*
+
+In this code, the only part that changes are `var2 name` and `var2`. 
+
+Now that we have this idea clear, we are ready to define our function. We will call it `ourPlot` and it will have only one parameter, `varname`:
+
+```{r}
+ourPlot <- function(varname) {
+  plot(mtcars$mpg, mtcars[[varname]], main = paste("mpg vs", varname), xlab = "mpg", ylab = varname, pch = 17)
+}
+```
+
+
+The first line sets the name of our function and defines the parameters. Inside the brackets, there is the function body, i.e. the code that the function executes. In our case, is the same than our abstract code but using the name of our parameter, `varname`. 
+
+Now, we can repeat our last plots with a much more compact code:
+
+```{r}
+par(mfrow = c(2, 3))
+ourPlot("cyl")
+ourPlot("disp")
+ourPlot("hp")
+ourPlot("drat")
+ourPlot("wt")
+ourPlot("qsec")
+```
+
+We can easily modify our function to fit to our supervisors requirements. This will reduce a lot the time needed to write the code and will help us to prevent errors:
+
+```{r}
+par(mfrow = c(2, 3))
+
+ourPlot2 <- function(varname) {
+  plot(mtcars$mpg, mtcars[[varname]], main = paste("mpg vs", varname), xlab = "mpg", ylab = varname, pch = 0)
+  abline(v = 20)
+}
+ourPlot2("cyl")
+ourPlot2("disp")
+ourPlot2("drat")
+ourPlot2("wt")
+ourPlot2("qsec")
+```
