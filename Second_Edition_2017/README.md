@@ -1,6 +1,7 @@
 # Introduction_R
 
-##Sesion 1: Introduction to R
+## Session 1: Introduction to R
+
 *	Introduction
 *	Installation
     * R
@@ -37,4 +38,4 @@
         * By index
         * By name
 
-##Session 2:
+## Session 2:
