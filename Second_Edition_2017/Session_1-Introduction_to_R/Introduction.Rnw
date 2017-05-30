@@ -52,7 +52,7 @@ options(width = 60)
 
 \begin{frame}[fragile]\frametitle{What is \texttt{R} ?}
 
-``R'': integrated suite of software for data manipulation, calculation and graphical display. Characteristics:\\
+\texttt{R}: integrated suite of software for data manipulation, calculation and graphical display. Characteristics:\\
 \begin{itemize}
 \item Effective data handling and storage facility.
 \item Suite of operators for calculations on arrays.
@@ -116,18 +116,18 @@ options(width = 60)
 
 \begin{frame}[fragile]\frametitle{How \texttt{R} works}
 
-\textbf{Objects}: information stored in the active memory. Objects have a name, and can contain variables, data, functions, etc. In order to display the content of the object, type its name. Objects are created with the "assign" operator (\texttt{<-} or \texttt{->}), and it must start with a letter.
+\textbf{Objects}: information stored in the active memory. Objects have a name, and can contain variables, data, functions, etc. In order to display the content of the object, type its name. Objects are created with the ``assign'' operator (\texttt{<-} or \texttt{->}), and it must start with a letter.
 
 <<object, eval=TRUE>>=
-a <- 1 # Assign the number 1 to the object 'a'
-a # Print the contents of the object 'a'.
+a <- 1 # Assign the number 1 to the object a.
+a # Print the contents of the object a.
 @
 
 
 \textbf{Functions}: Group of operations applied to none, one or several objects that returns another object as a result. Objects are passed as arguments. The use of parenthesis () indicates a function.
 
 <<print, eval=TRUE>>=
-print(a) # Print in the terminal the contents of the 'a' object.
+print(a) # Print in the terminal the contents of the a object.
 @
 
 \end{frame}
@@ -135,7 +135,7 @@ print(a) # Print in the terminal the contents of the 'a' object.
 
 \begin{frame}[fragile]\frametitle{Working directory}
 Folder where \texttt{R} will search for files by default.\\
-It's important to know where are we woking. There's a default path when starting R that can be shown with the function:
+It's important to know where are we woking. There's a default path when starting \texttt{R} that can be shown with the function:
 
 <<workdir, eval=TRUE>>=
 getwd() # Prints the current working directory.
@@ -145,7 +145,7 @@ It can be changed by:
 \begin{itemize}
 \item Changing the \texttt{Start in} field in the \texttt{R} shortcut in windows before opening it.
 \item Going to \texttt{File} --> \texttt{Change dir} inside \texttt{R}.
-\item Use setwd() function:
+\item Use \texttt{setwd} function:
 \end{itemize}
 
 <<workdir2, eval=FALSE>>=
@@ -156,13 +156,13 @@ setwd("C:/Users/Marcos/Documents") # Set the working directory.
 
 \begin{frame}[fragile]\frametitle{Listing and deleting objects in memory}
 
-\texttt{ls()}: Show the names of all objects in memory.
+\texttt{ls}: Function to show the names of all objects in memory.
 
-<<ls2, eval=TRUE>>=
+<<ls, eval=TRUE>>=
 ls() # Show the names of all objects in memory.
 @
 
-\texttt{rm()}: Removes one or more objects from memory.
+\texttt{rm}: Function to remove one or more objects from memory.
 
 <<rm, eval=TRUE>>=
 rm(a) # Remove the object 'a' from memory.
@@ -179,13 +179,13 @@ You can use \texttt{?} to obtain information about how to use a function. A page
 help("ls") # Look for help about the 'ls' function
 @
 
-If you remember part of the name of the function, you can search it with the function `\texttt{apropos}.
+If you remember part of the name of the function, you can search it with the function \texttt{apropos}.
 
 <<help2, eval=FALSE>>=
 apropos("ls") # Search all the functions that contain a "ls" in its name.
 @
 
-If we want to do something, but we don't know the function (if exists), we can use the function \texttt{help search} to look for a word or words in the documentation.
+If we want to do something, but we don't know the function (if exists), we can use the function \texttt{help.search} to look for a word or words in the documentation.
 
 <<help3, eval=FALSE>>=
 ??"List Objects" # Search all the functions that contain "List Objects" words in its description.
@@ -196,7 +196,7 @@ help.search("List Objects") # Search all the functions that contain "List Object
 
 \begin{frame}[fragile]\frametitle{Loading libraries and packages I}
 
-Libraries (or packages) are groups of functions that adds new methods or improved functionalities to \texttt{R}. To see which packages are installed the function \texttt{library} can be used, and to see which are already loaded, the \texttt{search} function.
+Libraries (or packages) are groups of functions that adds new methods or improved functionalities to \texttt{R}. To see which packages are installed the function \texttt{library} can be used. To see which are already loaded, use the \texttt{search} function.
 
 <<search, eval=FALSE>>=
 library() # Show the libraries installed.
@@ -205,7 +205,7 @@ search() # Show the libraries loaded in memory.
 
 Installation of packages depends on the OS and \texttt{R} installation. The main repository of packages is \href{https://cran.r-project.org/}{CRAN}. \\
 
-Packages can be installed with \texttt{install.packages} function, or if using \texttt{R}, or RStudio, with the interactive menu options.
+Packages can be installed with \texttt{install.packages} function, or if using \texttt{R}, or \texttt{RStudio}, with the interactive menu options.
 
 <<installpackage, eval=FALSE>>=
 install.packages("ggplot2") # Installs the ggplot2 package.
@@ -217,7 +217,8 @@ install.packages("ggplot2") # Installs the ggplot2 package.
 
 Once the package is installed, it must be loaded into memory to access its functions.
 
-<<search, eval=TRUE>>=
+<<library, eval=TRUE>>=
+require(ggplot2) # If not installed, installs and loads.
 library(ggplot2) # Load the library ggplot2.
 @
 
@@ -244,26 +245,28 @@ More than one object can be saved or loaded in this way. The extension of the da
 
 \begin{frame}[fragile]\frametitle{Saving and loading objects II}
 
-The workspace can be also saved and loaded in the same way as objects, but instead use \texttt{save.image} and the same \texttt{load} function.
+The workspace can be also saved and loaded in the same way as objects, using the function \texttt{save.image} and the same \texttt{load} function.
 
 <<Saving_Loading2>>=
-save.image("Rcourse.RData") # Save all the objects in the workspace to the 'Rcourse.RData' file.
+save.image("Rcourse.RData") # Save all objects in the workspace 
+# to the 'Rcourse.RData' file.
 rm(list = ls()) # Remove all the objects in workspace
 ls() # list all the objects in workspace
-load(file = "Rcourse.RData") # Load all the objects in the workspace from the 'Rcourse.RData' file.
+load(file = "Rcourse.RData") # Load all objects in the workspace
+# from the 'Rcourse.RData' file.
 ls()# list all the objects in workspace
 @
 
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Closing \texttt{R}}
-When we have to close the session, we can click the close button of the window, go to the \texttt{File} menu and select quit, or use the q() function. 
+When we have to close the session, we can click the close button of the window, go to the \texttt{File} menu and select quit, or use the \texttt{q} function. 
 
 <<exit, eval=FALSE>>=
 q()
 @
 
-R \emph{always} will ask us if we want to save the workspace. Saving the workspace we save all the variables and the commands used in the session, but if we are working with large datasets, it's recommended instead to save only the objects we are interested in or the results, as we will see later. I recommend choosing ``No'' and only save the image if it's really necessary. 
+\texttt{R} \emph{always} will ask us if we want to save the workspace. Saving the workspace we save all the variables and the commands used in the session, but if we are working with large datasets, it's recommended instead to save only the objects we are interested in or the results, as we will see later. I recommend choosing ``No'' and only save the image if it's really necessary. 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -306,7 +309,7 @@ d
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Mode: \texttt{Character}}
-When working with labelled variables or character strings, we will find the \texttt{character} mode. It is imputed with double quotes ".
+When working with labelled variables or character strings, we will find the \texttt{character} mode. To create an object, the string must be flanked by double quotes ".
 
 <<character1, eval=TRUE>>=
 a <- "a"
@@ -332,7 +335,7 @@ mode(a)
 
 The \texttt{logical} mode will be found when passing arguments (\texttt{TRUE/FALSE}) or when making comparisons.
 
-<<factor, eval=TRUE>>=
+<<logical, eval=TRUE>>=
 b == "123"
 d <- TRUE
 d
@@ -362,7 +365,7 @@ list & \textit{numeric, character, complex, logical, function, expression...} & 
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Vectors and factors}
-Vectors are the simplest object types, and it is a series of values of the same mode. It is usually considered a "variable"
+Vectors are the simplest object types, and it is a series of values of the same mode. It is usually considered a "variable".
 
 <<vector, eval=TRUE>>=
 a <- c(1,2,3,4,5)
@@ -414,7 +417,7 @@ h
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{lists}
-list can contain any type of objects, even lists.
+List can contain any type of objects, even lists.
 <<lists>>=
 d <- c(1, 5, 10, 50, 100)
 i <- list(a, b, c, d, e, f, g, h)
@@ -479,7 +482,7 @@ Wilcoxon's statistics & \texttt{rwilcox(nn, m, n)}, \texttt{rsignrank(nn, n)} \\
 
 \begin{frame}[fragile]\frametitle{Operators}
 In addition to the elementary arithmetic operators (+, -, *, / and \textasciicircum ), R have available common arithmetic functions and useful function for vectors. Except some, those operators are applied to all elements of the vector, and are:
-<<Arith, eval=FALSE>>=
+<<arith, eval=FALSE>>=
 log(d) ## Logarithm
 exp(d) ## Exponential
 sin(d); cos(d); tan(d) ## Trigonometric functions
