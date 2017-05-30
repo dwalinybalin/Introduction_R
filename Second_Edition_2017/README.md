@@ -68,3 +68,31 @@
 * Introduction to functions creations
     * Case example
     * Create your own function
+    
+## Session 4: Basic Statistics with R
+
+* Introduction
+    * Required packages
+    * Inspecting data
+    * Manipulate data
+* Descriptive analysis
+    * Type of variables
+    * Descriptive analysis for Continuous variables
+    * Descriptive analysis for Categorical variables
+    * Descriptive analysis for ```birthwt``` data
+* Bivariate analysis
+    * Bivariate analysis for Categorical variables
+    * Bivariate analysis for Continuous variables
+* Inference
+    * Inference analysis
+* GLM
+    * Simple linear regression
+    * Simple logistic regression
+    * Multiple linear regression
+    * Multiple logistic regression
+* Hands on
+    * Final exercise: Preliminary
+    * Final exercise: Univariate descriptive
+    * Final exercise: Bivariate descriptive
+    * Final exercise: Inference
+    * Final exercise: GLM
