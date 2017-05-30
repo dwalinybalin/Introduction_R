@@ -5,6 +5,8 @@
 \usepackage{color}
 \usepackage{ISGlobal_slides}
 \usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
 
 \SweaveOpts{keep.source=TRUE}
 \setkeys{Gin}{width=0.6\textwidth}
@@ -14,17 +16,17 @@
 \title[Introduction to R]{Introduction}
 \author[Marcos Lopez-Sanchez]{Marcos Lopez-Sanchez}
 \institute[ISGlobal]{ISGlobal Barcelona Institute for Global Health \\
-                  \url{http://www.isglobal.org}
-                  }
-                 
+\url{http://www.isglobal.org}
+}
+
 \date{Introduction to R \\ 2nd Edition \\  
-May 29th 2017}
+May 30th 2017}
 
 
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
-                            
+
 <<setup, echo=FALSE>>=
 options(width = 60)
 @ 
@@ -34,22 +36,21 @@ options(width = 60)
 
 \frame{\tableofcontents}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[fragile]\frametitle{What is ``R'' ?}
+\begin{frame}[fragile]\frametitle{What is \texttt{R} ?}
 
 \begin{figure}
-  \centering
-    \includegraphics[width=1\textwidth]{Rgui}
+\centering
+\includegraphics[width=1\textwidth]{Rgui}
 \end{figure}
 
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{What is ``R'' ?}
+\begin{frame}[fragile]\frametitle{What is \texttt{R} ?}
 
 ``R'': integrated suite of software for data manipulation, calculation and graphical display. Characteristics:\\
 \begin{itemize}
@@ -57,35 +58,24 @@ options(width = 60)
 \item Suite of operators for calculations on arrays.
 \item Large, coherent, integrated collection of intermediate tools for data analysis.
 \item Graphical facilities for data analysis and display.
-\item Simple and effective programming language (called ``S'').
+\item Simple and effective programming language (called \texttt{S}).
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Installing R}
-
-\begin{itemize}
-\item Distributed as an installer with the name R-X.Y.Z-win.exe (Most updated 3.4.0)
-\item Maintained by the Comprehensive R Archive Network (CRAN)
-\item CRAN page (Spanish mirror) -- \url{http://cran.es.r-project.org/}
-\item Installer -- \url{https://cran.r-project.org/bin/windows/base/R-3.4.0-win.exe}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{What is ``RStudio'' ?}
+\begin{frame}[fragile]\frametitle{What is \texttt{RStudio} ?}
 
 \begin{figure}
-  \centering
-    \includegraphics[width=1\textwidth]{RStudio}
+\centering
+\includegraphics[width=1\textwidth]{RStudio}
 \end{figure}
 
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{What is ``RStudio'' ?}
+\begin{frame}[fragile]\frametitle{What is \texttt{RStudio} ?}
 
-``RStudio'': Integrated development environment (IDE) for R. With several features:\\
+\texttt{RStudio}: Integrated development environment (IDE) for \texttt{R}. With several features:\\
 \begin{itemize}
 \item Code editor.
 \item Syntax highlighting, code completion and smart indentation.
@@ -95,110 +85,399 @@ options(width = 60)
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Installing RStudio}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Installation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]\frametitle{Installing \texttt{R}}
 
 \begin{itemize}
-\item The RStudio software under Windows OS is distributed as an installer with the name RStudio-X.Y.Z.exe (Most updated 1.0.143)
-\item RStudio page -- \url{https://www.rstudio.com}
+\item Distributed as an installer with the name \texttt{R-X.Y.Z-win.exe} (Most updated 3.4.0)
+\item Maintained by the Comprehensive R Archive Network (CRAN)
+\item \texttt{CRAN} page (Spanish mirror) -- \url{http://cran.es.r-project.org/}
+\item Installer -- \url{https://cran.r-project.org/bin/windows/base/R-3.4.0-win.exe}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Installing \texttt{RStudio}}
+
+\begin{itemize}
+\item The \texttt{RStudio} software under Windows OS is distributed as an installer with the name \texttt{RStudio-X.Y.Z.exe} (Most updated 1.0.143)
+\item \texttt{RStudio} page -- \url{https://www.rstudio.com}
 \item Installer -- \url{https://download1.rstudio.org/RStudio-1.0.143.exe}
 \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{First steps}
+\section{Concepts}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}[fragile]\frametitle{How \texttt{R} works}
+
+\textbf{Objects}: information stored in the active memory. Objects have a name, and can contain variables, data, functions, etc. In order to display the content of the object, type its name. Objects are created with the "assign" operator (\texttt{<-} or \texttt{->}), and it must start with a letter.
+
+<<object, eval=TRUE>>=
+a <- 1 # Assign the number 1 to the object 'a'
+a # Print the contents of the object 'a'.
+@
+
+
+\textbf{Functions}: Group of operations applied to none, one or several objects that returns another object as a result. Objects are passed as arguments. The use of parenthesis () indicates a function.
+
+<<print, eval=TRUE>>=
+print(a) # Print in the terminal the contents of the 'a' object.
+@
+
+\end{frame}
+
+
 \begin{frame}[fragile]\frametitle{Working directory}
-Folder where R will search for files by default.\\
+Folder where \texttt{R} will search for files by default.\\
 It's important to know where are we woking. There's a default path when starting R that can be shown with the function:
 
-<<workdir1, eval=TRUE>>=
-getwd()
+<<workdir, eval=TRUE>>=
+getwd() # Prints the current working directory.
 @
 
 It can be changed by:
 \begin{itemize}
-\item Changing the ``Start in'' field in the R shortcut in windows before opening it.
-\item Going to ``File''-->``Change dir'' inside R.
+\item Changing the \texttt{Start in} field in the \texttt{R} shortcut in windows before opening it.
+\item Going to \texttt{File} --> \texttt{Change dir} inside \texttt{R}.
 \item Use setwd() function:
 \end{itemize}
 
 <<workdir2, eval=FALSE>>=
-setwd("/home/mlopez3/Documentos")
+setwd("C:/Users/Marcos/Documents") # Set the working directory.
 @
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Basic usage}
-The first things to do once R is started is use it as a basic math solver
+\begin{frame}[fragile]\frametitle{Listing and deleting objects in memory}
 
-<<math1, eval=TRUE>>=
-2+2
-1+2*3-4/5
-(19465*0.25)^23
+\texttt{ls()}: Show the names of all objects in memory.
+
+<<ls2, eval=TRUE>>=
+ls() # Show the names of all objects in memory.
 @
 
-It follows the usual precedence for operators, but can be forced with the use of parentheses ().\\
-So the first usual thing in programmation is to print the ``hello world''
+\texttt{rm()}: Removes one or more objects from memory.
 
-<<helloword, eval=TRUE>>=
-print("hello world")
+<<rm, eval=TRUE>>=
+rm(a) # Remove the object 'a' from memory.
+rm(list = ls()) # Remove all objects from memory.
 @
 
-Hello world is a string, and because that we must pass it between single or dobule quotes.
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Getting help}
+You can use \texttt{?} to obtain information about how to use a function. A page will open with general information 
 
+<<help1, eval=FALSE>>=
+?ls # Look for help about the 'ls' function
+help("ls") # Look for help about the 'ls' function
+@
 
-\begin{frame}[fragile]\frametitle{Closing R and saving Workspace}
-When we have to close the session, we can click the close button of the window, go to the ``File'' menu and select quit, or use the q() function. 
+If you remember part of the name of the function, you can search it with the function `\texttt{apropos}.
+
+<<help2, eval=FALSE>>=
+apropos("ls") # Search all the functions that contain a "ls" in its name.
+@
+
+If we want to do something, but we don't know the function (if exists), we can use the function \texttt{help search} to look for a word or words in the documentation.
+
+<<help3, eval=FALSE>>=
+??"List Objects" # Search all the functions that contain "List Objects" words in its description.
+help.search("List Objects") # Search all the functions that contain "List Objects" words in its description.
+@
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Loading libraries and packages I}
+
+Libraries (or packages) are groups of functions that adds new methods or improved functionalities to \texttt{R}. To see which packages are installed the function \texttt{library} can be used, and to see which are already loaded, the \texttt{search} function.
+
+<<search, eval=FALSE>>=
+library() # Show the libraries installed.
+search() # Show the libraries loaded in memory.
+@
+
+Installation of packages depends on the OS and \texttt{R} installation. The main repository of packages is \href{https://cran.r-project.org/}{CRAN}. \\
+
+Packages can be installed with \texttt{install.packages} function, or if using \texttt{R}, or RStudio, with the interactive menu options.
+
+<<installpackage, eval=FALSE>>=
+install.packages("ggplot2") # Installs the ggplot2 package.
+@
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Loading libraries and packages II}
+
+Once the package is installed, it must be loaded into memory to access its functions.
+
+<<search, eval=TRUE>>=
+library(ggplot2) # Load the library ggplot2.
+@
+
+Moreover, there are third-party repositories with packages like Bioconductor, specialized in biological and bioinformatics data analysis (\url{http://www.bioconductor.org/}) or Omegahat project, specialiced in statistical computing. (\url{http://www.omegahat.net/})
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Saving and loading objects I}
+
+Objects can be saved from memory to disk, and they can be loaded later. It is done by the \texttt{save} and \texttt{load} functions. If no path is specified, by default it will be the working directory path.
+
+<<Saving_Loading>>=
+a <- 1
+save(a, file = "test.rda") # Save the 'a' object in the 'test.rda' file.
+rm(list = ls()) # Remove all the objects in the workspace.
+ls()# list all the objects in workspace
+load(file = "test.rda") # Load the 'a' object in the 'test.rda' file.
+ls()# list all the objects in workspace
+@
+
+More than one object can be saved or loaded in this way. The extension of the data files usually it is ".rda", ".rdata", or even ".Rdata".
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Saving and loading objects II}
+
+The workspace can be also saved and loaded in the same way as objects, but instead use \texttt{save.image} and the same \texttt{load} function.
+
+<<Saving_Loading2>>=
+save.image("Rcourse.RData") # Save all the objects in the workspace to the 'Rcourse.RData' file.
+rm(list = ls()) # Remove all the objects in workspace
+ls() # list all the objects in workspace
+load(file = "Rcourse.RData") # Load all the objects in the workspace from the 'Rcourse.RData' file.
+ls()# list all the objects in workspace
+@
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Closing \texttt{R}}
+When we have to close the session, we can click the close button of the window, go to the \texttt{File} menu and select quit, or use the q() function. 
 
 <<exit, eval=FALSE>>=
 q()
 @
 
 R \emph{always} will ask us if we want to save the workspace. Saving the workspace we save all the variables and the commands used in the session, but if we are working with large datasets, it's recommended instead to save only the objects we are interested in or the results, as we will see later. I recommend choosing ``No'' and only save the image if it's really necessary. 
-
 \end{frame}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Survival guide}
+\section{Data with R}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[fragile]\frametitle{Assignment and Vectors}
-R operates on data structures. The simplest structure is the numeric vector.\\ In order to assign values to a variable,
-we use an arrow ``<-''. 
+\begin{frame}[fragile]\frametitle{Objects}
+All the objects have two intrinsic attributes, \texttt{length} and \texttt{mode}:
+\begin{itemize}
+\item \texttt{length}: Number of elements of the object.
+\item \texttt{mode}: Description of the basic type of the elements of the object.
+\end{itemize}
+\\
+\\
+There are four types of elements that we will see:
+\begin{itemize}
+\item \texttt{Numeric}: Numeric values.
+\item \texttt{Character}: letters and words.
+\item \texttt{Complex}: Complex values (1i).
+\item \texttt{Logical}: \texttt{TRUE} or \texttt{FALSE} values.
+\end{itemize}
+For all modes, missing data is represented as \texttt{NA}.
+\end{frame}
 
-<<vector1, eval=TRUE>>=
+\begin{frame}[fragile]\frametitle{Mode: \texttt{Numeric}}
+The most common mode is the \texttt{numeric} mode.
+
+<<numeric1, eval=TRUE>>=
 a <- 1
 b <- 10
 @
 
-If we want to assign more than one element, we use the concatenate function ``c''.\\ If there are more than one element assigned to the variable, then it's a vector of elements, in this case, numeric values.
+If we want to assign more than one element, we use the concatenate function ``c''.\\ If there are more than one element assigned to the object, then it's a vector of elements, in this case, numeric values.
 
-<<vector2, eval=TRUE>>=
+<<numeric2, eval=TRUE>>=
 c <- c(a, 5)
 d <- c(c, b, 50, 100)
 d
 @
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Assignment and Vectors II}
-Numbers can also be generated easily within R with several functions:
-<<Seq1, eval=TRUE>>=
-1:10 ## With Colons forward and backward
-seq(10,1) ## With seq function forward and backward too
-seq(from=1,to=10,by=2) ## With seq can be also done 2 by 2
-rep(c(1,2),times=5) ## repeat a element 5 times
+\begin{frame}[fragile]\frametitle{Mode: \texttt{Character}}
+When working with labelled variables or character strings, we will find the \texttt{character} mode. It is imputed with double quotes ".
+
+<<character1, eval=TRUE>>=
+a <- "a"
+b <- "10" # Number as a string
+@
+
+The concatenate function can be also applied to \texttt{character} mode values.\\ If there are more than one element assigned to the object, then it's a vector of elements, in this case, of character values.
+
+<<character2, eval=TRUE>>=
+c <- c(a, "c")
+d <- c(c, b, "Hello", "Affected")
+d
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Mode: \texttt{Complex} and Mode: \texttt{Factor}}
+We will find the \texttt{complex} mode when working with complex numbers.
+
+<<complex, eval=TRUE>>=
+a <- 3i
+mode(a)
+@
+
+The \texttt{logical} mode will be found when passing arguments (\texttt{TRUE/FALSE}) or when making comparisons.
+
+<<factor, eval=TRUE>>=
+b == "123"
+d <- TRUE
+d
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Object types}
+There are several object types that allows one or more value modes. The following list is a brief summary of those:
+
+\begin{table}[]
+\centering
+\label{my-label}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{object} & \textbf{modes} & \textbf{several modes possible in the same object?} \\ \midrule
+vector & \textit{numeric, character, complex or logical} & No \\
+factor & \textit{numeric or character} & No \\
+array & \textit{numeric, character, complex or logical} & No \\
+matrix & \textit{numeric, character, complex or logical} & No \\
+data frame & \textit{numeric, character, complex or logical} & Yes \\
+time series & \textit{numeric, character, complex or logical} & No \\
+list & \textit{numeric, character, complex, logical, function, expression...} & Yes \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Vectors and factors}
+Vectors are the simplest object types, and it is a series of values of the same mode. It is usually considered a "variable"
+
+<<vector, eval=TRUE>>=
+a <- c(1,2,3,4,5)
+a
+b <- c("a", "b", "c", "d")
+b
+@
+
+Factors on the other hand are considered as "categorical variables". They can be only of the \texttt{numeric} or the \texttt{character} modes.
+
+<<factor, eval=TRUE>>=
+c <- as.factor(c(1,2,3,4,5))
+c
+d <- as.factor(c("a", "b", "c", "d"))
+d
 @
 
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{matrices and arrays}
+Matrices are two-dimensional variables of the same mode, while matrices are k-dimensional.
+<<matrices>>=
+e <- matrix(data = c(1,2,3,4,5,6), nrow = 2, byrow = T)
+e
+f <- array(data = c(1,2,3,4,5,6,7,8), dim = c(2,2,2))
+f
+@
+\end{frame}
 
-\begin{frame}[fragile]\frametitle{Operators and Vectors}
+\begin{frame}[fragile]\frametitle{data frame}
+A data frame is the most common object type because it allows different modes in each column, vector or "variable". All the vectors must have the same length.
+
+<<dataframe>>=
+g <- data.frame(sample=c(1, 2, 3, 4, 5),
+                treated=c(TRUE, TRUE, TRUE, FALSE, FALSE),
+                hair=c("blond", "black", "auburn", "red", "gray"))
+g
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{time series}
+Time series contains additional attributes such as frequency and dates.
+<<timeseries>>=
+h <- ts(c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+        frequency = 4,
+        start = c(2017, 2))
+h
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{lists}
+list can contain any type of objects, even lists.
+<<lists>>=
+d <- c(1, 5, 10, 50, 100)
+i <- list(a, b, c, d, e, f, g, h)
+str(i)
+@
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Generating data: Regular sequences}
+Regular sequences of integers can be generated with the use of the colon operator ``:'' or the \texttt{seq} function.
+<<sequence1>>=
+g <- 1:20
+g
+h <- seq(from = 20, to = 100, by = 20)
+h
+@
+
+Additionally, the function \texttt{rep} allows repeating one element several times.
+<<rep>>=
+i <- rep(13, 6)
+i
+@
+
+And finally, the function \texttt{expand.grid} makes all the possible combination between different vectors.
+<<expand.grid>>=
+j <- expand.grid(h=c(60,80), w=c(100, 300), sex=c("Male", "Female"))
+@
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Generating data: Random sequences}
+There are several probability density functions that allows generating random sequence of numbers. Here some examples:
+\begin{table}[]
+\centering
+\label{my-label}
+\resizebox*{!}{\dimexpr\textheight-5\baselineskip\relax}{%
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Law} & \textbf{function} \\ \midrule
+Gaussian (normal) & \texttt{rnorm(n, mean = 0, sd = 1)} \\
+exponential & \texttt{rexp(n, rate = 1)} \\
+gamma & \texttt{rgamma(n, shape, scale = 1)} \\
+Poisson & \texttt{rpois(n, lambda)} \\
+Weibull & \texttt{rweibull(n, shape, scale = 1)} \\
+Cauchy & \texttt{rcauchy(n, location = 0, scale = 1)} \\
+beta & \texttt{rbeta(n, shape1, shape2)} \\
+``Student'' (t) & \texttt{rt(n, df)} \\
+Fisher-Snedecor (F) & \texttt{rf(n, df1, df2)} \\
+Pearson (\chi^2) & \texttt{rchisq(n, df)} \\
+binomial & \texttt{rbinom(n, size, prob)} \\
+multinomial & \texttt{rmultinom(n, size, prob)} \\
+geometric & \texttt{rgeom(n, prob)} \\
+hypergeometric & \texttt{rhyper(nn, m, n, k)} \\
+logistic & \texttt{rlogis(n, location = 0, scale = 1)} \\
+lognormal & \texttt{rlnorm(n, meanlog = 0, sdlog = 1)} \\
+negative binomial & \texttt{rnbinom(n, size, prob)} \\
+uniform & \texttt{runif(n, min = 0, max = 1)} \\
+Wilcoxon's statistics & \texttt{rwilcox(nn, m, n)}, \texttt{rsignrank(nn, n)} \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Operators}
 In addition to the elementary arithmetic operators (+, -, *, / and \textasciicircum ), R have available common arithmetic functions and useful function for vectors. Except some, those operators are applied to all elements of the vector, and are:
 <<Arith, eval=FALSE>>=
 log(d) ## Logarithm
@@ -213,8 +492,6 @@ prod(d) ## Returns the product
 mean(d) ## Returns the mean
 var(d) ## Returns the variance
 @
-
-
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Logical vectors}
@@ -250,8 +527,8 @@ ef
 @
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Subsetting vectors I }
-Vectors can be subsetted by using the name of the vector and a index vector in square brackets. There are 4 different types depending on the index vector:
+\begin{frame}[fragile]\frametitle{Accessing values of an object by index I}
+Objects can be subsetted by using the name of the object and a index vector in square brackets. There are 3 different types :
 \begin{itemize}
 \item A Logical vector: If we have a index vector of the same length as the vector from which the elements are to be selected.
 <<Sub1, eval=TRUE>>=
@@ -264,11 +541,10 @@ d[3]
 d[c(1,4,3,2,5)]
 d[length(d):1]
 @
-
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Subsetting vectors II }
+\begin{frame}[fragile]\frametitle{Accessing values of an object by index II}
 \begin{itemize}
 
 \item A vector of negative integral quantities: The index vector specifies the values to be excluded.
@@ -276,109 +552,33 @@ d[length(d):1]
 d[-3]
 d[-(2:4)]
 @
-\item A vector of character strings: This requires that the object has a names attribute to identify its components.
-<<Sub4, eval=TRUE>>=
-exposures <- d
-names(exposures) <- ef
-exposures[c("PFC3", "PM2.5")]
-@
+
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Classes I}
-So, normally we can have continual data (numerical) or categorical (character). If we have a numerical vector, the function summary returns some of the statistics of the variable passed. If the variable is character, we can see that the summary function dreturns the length and the type of the data. So, in order to process categorical data, we must change the ``character'' type to ``factor'' in order to process it with the function as.factor(). We can check the class of the object using the function class().\\
+\begin{frame}[fragile]\frametitle{Accessing values of an object by name I}
+Objects can be subsetted also by using the labels of the object. there are several kinds of names (\texttt{names}, \texttt{rownames}, \texttt{colnames}, \texttt{dimnames}).
 
-NOTE: To change a factor object to a numeric object we must first change it to character using the functions as.character() and  as.numeric()
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Classes II}
-<<Sum1, eval=TRUE>>=
-summary(d)
-class(d)
-summary(ef)
-class(ef)
-casecontrol <- c(rep("case", 4), "control")
-casecontrol <- as.factor(casecontrol)
-class(casecontrol)
-summary(casecontrol)
-@
-
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Getting help}
-
-R has a help function to get more information on any specific named function. It's useful to know what the function queried does and the input parameters.
-
-<<help1, eval=F>>=
-help(solve)
-?solve
-@
-
-For words with syntactic meaning like ``if'', ``for'' and ``function'' or special characters, the argument must be enclosed in double or single quotes
-
-If we don't know what's the name of the function but we know the method to apply or the action we want to do we can search the function.
-
-<<help2, eval=F>>=
-help.search("random")
-??random
+<<Sub4, eval=TRUE>>=
+exposures <- c(2, 5, 10, 50, 100)
+names(exposures) <- c(paste("PFC", 1:3, sep=""), paste("PM", c(2.5, 10), sep=""))
+exposures
+exposures[c("PFC3", "PM2.5")]
 @
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Saving and loading objects and Sessions}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}[fragile]\frametitle{Saving and Loading I }
-
-As said at the beginning, when we quit R we are asked to save the workspace. Furthermore, we can save the workspace where we want with the function save.image().Moreover, if we want to save only an object from the workspace, we can save it with the function save() by stating the name of the variable and the destination file, ended with the .RData extension. The files will be saved in the working directory if no path is specified.
-
-<<Save1, eval=F>>=
-save.image("Rcourse.RData")
-save(d, file="d.RData")
-@
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Saving and Loading II }
-
-Remember that THE NAME OF THE FILE IS NOT THE NAME OF THE VARIABLE INSIDE THE FILE.\\
-To load the objects or sessions, we use the function load() specifying the file on the working directory or the path to the file otherwise. In order to check which objects do we have in the workspace, we can use the function ls()
-
-<<Load2, eval=F>>=
-load("d.RData")
-ls()
-load("Rcourse.RData")
-ls()
+\begin{frame}[fragile]\frametitle{Accessing values of an object by name II}
+Additionally, \texttt{data frames} can be selected by using the name of the \texttt{data frame}, followed by a dollar operator and the name of the column of interest. All the other forms of subselection can be applied.
+<<Sub5, eval=TRUE>>=
+mtcars[1:2, ]
+mtcars$mpg > 20
+mtcars[mtcars$mpg > 25, ]
+mtcars[mtcars$mpg > 25 & mtcars$carb == 1, ]
+mtcars[mtcars$mpg > 25 & mtcars$carb == 1, ]$cyl
 @
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Packages and Repositories}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}[fragile]\frametitle{Packages and Repositories}
-
-Sometimes will be necessary to use methods not implemented in these basic operations. All R functions and datasets are stored in packages, in order to be efficient in terms of memory usage.\\
-To see which packages are installed, we can see it with the function library().
-
-<<Library1, eval=F>>=
-library() ## Show all packages installed
-library(boot) ## Load a package
-@
-
-In order to install packages, the function install.packages() and update.packages() are used, the first for installing from scratch and the second for updating packages.
-
-<<Library2, eval=F>>=
-install.packages("zoo")
-update.packages("base")
-@
-
-Moreover, there are third-party repositories with packages like Bioconductor, specialized in biological and bioinformatics data analysis.(\url{http://www.bioconductor.org/})
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Session Info}
