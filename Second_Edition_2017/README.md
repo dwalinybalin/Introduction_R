@@ -38,4 +38,33 @@
         * By index
         * By name
 
-## Session 2:
+## Session 2: Data management
+
+* Introduction
+* Read data
+    * Examine our data
+* Create new variables
+    * Dummy variables
+    * From continuous to categorical
+    * Merge variables
+* Get aggregate data
+* Search duplicates
+* Merge data.frames
+* Write output
+    * Extra: csv types
+* More resources on data management
+
+## Session 3: Plots and functions
+
+* Introduction
+    * Dataset
+* Plot functions
+    * Scatterplot
+    * Customize plots
+    * Add layers
+    * Boxplots
+    * Histograms
+        * More resources on data visualization
+* Introduction to functions creations
+    * Case example
+    * Create your own function
