@@ -386,7 +386,7 @@ d
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{matrices and arrays}
-Matrices are two-dimensional variables of the same mode, while matrices are k-dimensional.
+Matrices are two-dimensional variables of the same mode, while arrays are k-dimensional.
 <<matrices>>=
 e <- matrix(data = c(1,2,3,4,5,6), nrow = 2, byrow = T)
 e
@@ -451,7 +451,7 @@ j <- expand.grid(h=c(60,80), w=c(100, 300), sex=c("Male", "Female"))
 There are several probability density functions that allows generating random sequence of numbers. Here some examples:
 \begin{table}[]
 \centering
-\label{my-label}
+\label{my-label2}
 \resizebox*{!}{\dimexpr\textheight-5\baselineskip\relax}{%
 \begin{tabular}{@{}ll@{}}
 \toprule
